@@ -8,16 +8,18 @@
                 <th>Name</th>
                 <th>Genre</th>
                 <th>Release Date</th>
+                <th><input type="checkbox" @onchange="(() => displayButtons = !displayButtons)"/></th>
             </tr>
         </thead>
         <tbody>
-           @foreach (var item in Games)
+          @foreach (var item in Games)
            {
-               <tr>
+              @*  <tr>
                    <td>@item.Name</td>
                    <td>@item.Genre</td>
                    <td>@item.ReleaseDate.ToString("dd.MM.yyyy")</td>
-               </tr>
+               </tr>*@
+                <IndividualGame Game="item" IsTable="true" DisplayButtons="displayButtons"/>
            }
         </tbody>
     </table>
@@ -25,5 +27,7 @@
 
 @code{
     [Parameter] public List<Game> Games { get; set; } // parameter для получения разных значений на разных страницах 
+
+    bool displayButtons = false;
 
 }
