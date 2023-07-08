@@ -1,0 +1,11 @@
+﻿<div class="row text-center alert alert-info">
+    <div class="col">
+        <p>@Game.Name</p>
+        <p>@Game.Genre</p>
+        <p>@Game.ReleaseDate.ToString("dd.MM.yyyy")</p>
+
+    </div>
+</div>
+@code {
+    [Parameter] public Game Game { get; set; }
+}
