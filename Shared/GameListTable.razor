@@ -11,55 +11,19 @@
             </tr>
         </thead>
         <tbody>
-            @if (games == null)
-            {
-                <tr>LOADING DATA ...</tr>
-            }
-            else if (games.Count == 0){
-                <tr>NO ITMES IN ARRAY</tr>
-            }
-            else 
-            {
-                @foreach (var item in games)
-                {
-                    <tr>
-                        <td>@item.Name</td>
-                        <td>@item.Genre</td>
-                        <td>@item.ReleaseDate.ToString("dd.MM.yyyy")</td>
-                    </tr>
-                }
-            }
+           @foreach (var item in Games)
+           {
+               <tr>
+                   <td>@item.Name</td>
+                   <td>@item.Genre</td>
+                   <td>@item.ReleaseDate.ToString("dd.MM.yyyy")</td>
+               </tr>
+           }
         </tbody>
     </table>
 </div>
 
 @code{
-    private List<Game> games { get; set; }
-
-    protected override async Task OnInitializedAsync() // инициализация до отрисовки метода
-    { //если данных очень много - нужно время чтобы получить из БД -> заполнить -> и передать в пердставление
-        await Task.Delay(3000);
-        games = new List<Game>()
-        {
-            new Game()
-            {
-                Name = "Farming simulator 2019",
-                Genre = "Simulator",
-                ReleaseDate = new DateTime(2018,11,19)
-            },
-             new Game()
-            {
-                Name = "Ведьмак",
-                Genre = "Action RPG",
-                ReleaseDate = new DateTime(2015,05,18)
-            },
-             new Game()
-            {
-                Name = "Destroy all humans",
-                Genre = "Action adventure",
-                ReleaseDate = new DateTime(2020,07,28)
-            },
-        };
-    }
+    [Parameter] public List<Game> Games { get; set; } // parameter для получения разных значений на разных страницах 
 
 }
