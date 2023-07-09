@@ -1,5 +1,5 @@
-﻿<h3>GameListTable</h3>
-
+﻿@using GameIndustry.Shared
+<h3>GameListTable</h3>
 
 <div class="table-responsive">
     <table class="table table-striped">
@@ -12,49 +12,18 @@
             </tr>
         </thead>
         <tbody>
-            @if (Games == null)
-            {
-                @if (NullList != null)
-                {
-                    @NullList
-                }
-                else
-                {   
-                    <img src="https://i.pinimg.com/originals/71/3a/32/713a3272124cc57ba9e9fb7f59e9ab3b.gif" height="200" >
-                }
-            }
-            else if (Games.Count == 0)
-            {
-                @if (NullList != null)
-                {
-                    @EmptyList
-                }
-                else
-                {
-                    <img src="https://cdn.dribbble.com/users/665029/screenshots/16162764/media/3ea69cb1655fba401acc6c4328d38633.gif" height="200">
-                }
-            }
-            else
-            {
-                @foreach (var item in Games)
-                {
-                    @*  <tr>
-            <td>@item.Name</td>
-            <td>@item.Genre</td>
-            <td>@item.ReleaseDate.ToString("dd.MM.yyyy")</td>
-            </tr>*@
-                    <IndividualGame Game="item" IsTable="true" DisplayButtons="displayButtons" DeleteGame="DeleteTheGame" />
-                }
-            }
-
+           <GenericListForGame ListOfItems="Games"> 
+               <ItemTemplate Context="game">
+                    <IndividualGame Game="game" IsTable="true" DisplayButtons="displayButtons" DeleteGame="DeleteTheGame" />
+               </ItemTemplate>
+           </GenericListForGame>
         </tbody>
     </table>
 </div>
 
 @code {
     [Parameter] public List<Game> Games { get; set; } // parameter для получения разных значений на разных страницах
-    [Parameter] public RenderFragment NullList { get; set; }
-    [Parameter] public RenderFragment EmptyList { get; set; }
+   
     bool displayButtons = false;
     void DeleteTheGame(Game game)
     {

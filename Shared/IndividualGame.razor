@@ -1,41 +1,41 @@
-﻿@if (!IsTable)
+﻿@if (!IsTable && Game != null)
 {
-   <div class="row text-center alert alert-info">
-         <div class="col">
-             <p>@Game.Name</p>
-             <p>@Game.Genre</p>
-             <p>@Game.ReleaseDate.ToString("dd.MM.yyyy")</p>
+    <div class="row text-center alert alert-info">
+        <div class="col">
+            <p>@Game.Name</p>
+            <p>@Game.Genre</p>
+            <p>@Game.ReleaseDate.ToString("dd.MM.yyyy")</p>
 
-         </div>
-    </div>
 
-    @if (DisplayButtons) // ==true
-    {
-        <div class="row">
-            <div class="col offset-3">
-                <button class="btn btn-danger" @onclick="SwitchGame">Switch</button>
-            </div>
-            <div class="col">
-              
-            </div>
+
+            @if (DisplayButtons) // ==true
+            {
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary" @onclick="SwitchGame">Switch the game</button>
+                    </div>
+                </div>
+            }
         </div>
-    }
+    </div>
 }
 else
 {
-    <tr>
-        <td>@Game.Name</td>
-        <td>@Game.Genre</td>
-        <td>@Game.ReleaseDate.ToString("dd.MM.yyyy")</td>
-        <td>
-            @if (DisplayButtons == true)
-            {
-                <button class="btn btn-danger" @onclick="( ()=> DeleteGame.InvokeAsync(Game))">Delete</button>
-                 
-            }
-            
-        </td>
-    </tr>
+    if (Game != null)
+    {
+        <tr>
+            <td>@Game.Name</td>
+            <td>@Game.Genre</td>
+            <td>@Game.ReleaseDate.ToString("dd.MM.yyyy")</td>
+            <td>
+                @if (DisplayButtons == true)
+                {
+                    <button class="btn btn-danger" @onclick="( ()=> DeleteGame.InvokeAsync(Game))">Delete</button>
+                }
+
+            </td>
+        </tr>
+    }
 }
 
 @code {
@@ -43,7 +43,7 @@ else
     [Parameter] public bool IsTable { get; set; }
 
     [Parameter] public bool DisplayButtons { get; set; } = false;
-    [Parameter] public EventCallback<Game> DeleteGame {get;set;}
+    [Parameter] public EventCallback<Game> DeleteGame { get; set; }
     [Parameter] public EventCallback SwitchGame { get; set; }
     //string message;
     //void Delete()

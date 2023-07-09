@@ -1,0 +1,41 @@
+﻿<h3>GenericListForGame</h3>
+
+@typeparam TItem
+@if (ListOfItems == null)
+{
+    @if (NullList != null)
+    {
+        @NullList
+    }
+    else
+    {
+        <img src="https://i.pinimg.com/originals/71/3a/32/713a3272124cc57ba9e9fb7f59e9ab3b.gif" height="200">
+    }
+}
+else if (ListOfItems.Count == 0)
+{
+    @if (NullList != null)
+    {
+        @EmptyList
+    }
+    else
+    {
+        <img src="https://cdn.dribbble.com/users/665029/screenshots/16162764/media/3ea69cb1655fba401acc6c4328d38633.gif" height="200">
+    }
+}
+else
+{
+    @foreach (var item in ListOfItems)
+    {
+        @ItemTemplate(item)
+    }
+}
+
+@code {
+    [Parameter] public RenderFragment NullList { get; set; }
+    [Parameter] public RenderFragment EmptyList { get; set; }
+
+    [Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
+    [Parameter] public List<TItem> ListOfItems { get; set; }
+
+}
