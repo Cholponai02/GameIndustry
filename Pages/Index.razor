@@ -19,38 +19,47 @@ Welcome to your new app.
     </div>
 </div>
 
-<GameListTable  Games="games"/>
-<IndividualGame Game="oneGameToShow" IsTable="false" DisplayButtons="true" SwitchGame="ShowNewGame"/>
+<GameListTable  Games="games"> 
+   @* <NullList>
+        <tr><span style="text-align: center; color:red; font-weight:bolder;"> Element Loading ...</span></tr>
+    </NullList>
+    <EmptyList>
+        <tr><span style="text-align: center; color:blue;"> No elements in array ...</span></tr>
+    </EmptyList>*@
+</GameListTable>
+
+@*<IndividualGame Game="oneGameToShow" IsTable="false" DisplayButtons="true" SwitchGame="ShowNewGame"/>*@
+
 @code{
-    List<Game> games; // не свойство ,а обычное поле 
+    List<Game> games/* = new List<Game>()*/; // не свойство ,а обычное поле 
     Random rnd;
     Game oneGameToShow;
-    protected override void OnInitialized() 
-    { 
-        games = new List<Game>()
-        {
-            new Game()
-            {
-                Name = "Farming simulator 2019",
-                Genre = "Simulator",
-                ReleaseDate = new DateTime(2018,11,19)
-            },
-             new Game()
-            {
-                Name = "Ведьмак",
-                Genre = "Action RPG",
-                ReleaseDate = new DateTime(2015,05,18)
-            },
-             new Game()
-            {
-                Name = "Destroy all humans",
-                Genre = "Action adventure",
-                ReleaseDate = new DateTime(2020,07,28)
-            },
-        };
-        rnd = new Random(DateTime.Now.Millisecond);
-        oneGameToShow = games[rnd.Next(0, games.Count)];
-    }
+    //protected override void OnInitialized() 
+    //{ 
+    //    games = new List<Game>()
+    //    {
+    //        new Game()
+    //        {
+    //            Name = "Farming simulator 2019",
+    //            Genre = "Simulator",
+    //            ReleaseDate = new DateTime(2018,11,19)
+    //        },
+    //         new Game()
+    //        {
+    //            Name = "Ведьмак",
+    //            Genre = "Action RPG",
+    //            ReleaseDate = new DateTime(2015,05,18)
+    //        },
+    //         new Game()
+    //        {
+    //            Name = "Destroy all humans",
+    //            Genre = "Action adventure",
+    //            ReleaseDate = new DateTime(2020,07,28)
+    //        },
+    //    };
+    //    rnd = new Random(DateTime.Now.Millisecond);
+    //    oneGameToShow = games[rnd.Next(0, games.Count)];
+    //}
 
     void ShowNewGame()
     {
