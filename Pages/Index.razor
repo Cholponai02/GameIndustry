@@ -20,9 +20,11 @@ Welcome to your new app.
 </div>
 
 <GameListTable  Games="games"/>
-<IndividualGame Game="games[0]" IsTable="false" DisplayButtons="true" />
+<IndividualGame Game="oneGameToShow" IsTable="false" DisplayButtons="true" SwitchGame="ShowNewGame"/>
 @code{
     List<Game> games; // не свойство ,а обычное поле 
+    Random rnd;
+    Game oneGameToShow;
     protected override void OnInitialized() 
     { 
         games = new List<Game>()
@@ -46,5 +48,29 @@ Welcome to your new app.
                 ReleaseDate = new DateTime(2020,07,28)
             },
         };
+        rnd = new Random(DateTime.Now.Millisecond);
+        oneGameToShow = games[rnd.Next(0, games.Count)];
+    }
+
+    void ShowNewGame()
+    {
+        oneGameToShow = SwitchGame();
+    }
+
+    Game SwitchGame()
+    {
+        Game tempGame;
+        if (games.Count >= 2)
+        {
+            int iterator = rnd.Next(0, games.Count);
+            tempGame = games[iterator];
+        }
+        else if (games.Count == 1)
+        {
+            tempGame = games[0];
+        }
+        else
+            return new Game() { Name = "Null items in array", ReleaseDate = DateTime.Now};
+        return tempGame;
     }
 }
