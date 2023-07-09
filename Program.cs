@@ -1,4 +1,5 @@
 using GameIndustry;
+using GameIndustry.Repository;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -13,6 +14,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<SingletonService>();
 builder.Services.AddTransient<TransientService>();
 
+builder.Services.AddTransient<IRepository,MockGamesRepository>();
 
 var app = builder.Build();
 

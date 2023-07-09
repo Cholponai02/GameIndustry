@@ -1,6 +1,8 @@
 ﻿@page "/"
 @*@inject HttpClient client*@
 
+@inject IRepository repository
+
 <div class = "row">
     <div class = "col text-center">
         <h1>Welcome to game industry</h1>
@@ -29,27 +31,8 @@
     protected override void OnInitialized() 
     {
         //await Task.Delay(2000);
-        games = new List<Game>()
-        {
-            new Game()
-            {
-                Name = "Farming simulator 2019",
-                Genre = "Simulator",
-                ReleaseDate = new DateTime(2018,11,19)
-            },
-             new Game()
-            {
-                Name = "Ведьмак",
-                Genre = "Action RPG",
-                ReleaseDate = new DateTime(2015,05,18)
-            },
-             new Game()
-            {
-                Name = "Destroy all humans",
-                Genre = "Action adventure",
-                ReleaseDate = new DateTime(2020,07,28)
-            },
-        };
+        games = repository.GetAllGames();
+
         rnd = new Random(DateTime.Now.Millisecond);
         oneGameToShow = games[rnd.Next(0, games.Count)];
     }
