@@ -1,5 +1,4 @@
 ﻿@using GameIndustry.Shared
-<h3>GameListTable</h3>
 
 <div class="table-responsive">
     <table class="table table-striped">
@@ -23,10 +22,28 @@
 
 @code {
     [Parameter] public List<Game> Games { get; set; } // parameter для получения разных значений на разных страницах
-   
+
     bool displayButtons = false;
     void DeleteTheGame(Game game)
     {
         Games.Remove(game);
+    }
+    //---------------------------------
+    protected override void OnInitialized()
+    { //В консоле 2 раза выходит: 1-на сервере и 2-при отпрравке в браузер
+        Console.WriteLine($"1. OnInitialized(). Games count: {Games?.Count}.");
+    }
+    protected override void OnParametersSet() //также выходит 2 раза
+    {//вызывается каждый раз после изменения чего-либо на странице или после OnInitialized
+        Console.WriteLine($"2. OnParametersSet(). Games count: {Games?.Count}.");
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {//firstRender -- отрисовывается ли в первый раз - true , если перерисовывается какой-то элемент false
+        Console.WriteLine($"3. OnAfterRender(bool firstRender)(). First render ?: {firstRender}.");
+    }
+    protected override bool ShouldRender()
+    {//либо дает либо отключает возможность повторной перерисовки компонента
+        //return false; // тут запретили перерисовку
+        return true; 
     }
 } 

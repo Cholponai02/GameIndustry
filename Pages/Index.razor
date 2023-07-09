@@ -14,13 +14,19 @@
 
 <IndividualGame Game="oneGameToShow" IsTable="false" DisplayButtons="true" SwitchGame="ShowNewGame"/>
 
+<div class="row">
+    <div class=" col text-center">
+        <button @onclick="AddNewGame" class="btn btn-success">Add new game</button>
+    </div>
+</div>
+
 @code{
     List<Game> games/* = new List<Game>()*/; // не свойство ,а обычное поле 
     Random rnd;
     Game oneGameToShow;
-    protected async override Task OnInitializedAsync() 
+    protected override void OnInitialized() 
     {
-        await Task.Delay(2000);
+        //await Task.Delay(2000);
         games = new List<Game>()
         {
             new Game()
@@ -66,5 +72,9 @@
         else
             return new Game() { Name = "Null items in array", ReleaseDate = DateTime.Now};
         return tempGame;
+    }
+    void AddNewGame()
+    {
+        games.Add(new Game() {Name = "Game for test", Genre= " test", ReleaseDate = DateTime.Today});
     }
 }
