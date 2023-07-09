@@ -1,13 +1,30 @@
 ﻿@page "/counter"
 
-<PageTitle>Counter</PageTitle>
 
-<h1>Counter</h1>
-<GameListTable Games="otherGames"/>
+<div class="row">
+    <div class="col alert alert-secondary text-center">
+        <h1>Counter</h1>
+    </div>
+</div>
 
-<p role="status">Current count: @currentCount</p>
+<div class="row">
+    <div class="col-6 text-left">
+        <button class="btn btn-primary p-3" @onclick="IncrementCount">Click me</button>
+    </div>
+    <div class="col-6 text-right">
+        <div style="font-size:50px">@currentCount</div>
+    </div>
+</div>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<div class="row">
+    <div class="col text-center">
+        <input type="number" class="form-control-lg" @bind="currentCount" 
+           @* @bind-value="currentCount" @bind-value:event="onchange"*@/> 
+            <!--bind привязка данных (создает в автоматическом режиме событие и делегат привязывает к этому событию)  
+                В bind автоматически создается Onchange
+        bind-value исп. если хотим что сработаело свое собитие(не onchange ф свое кастомное)-->
+    </div>
+</div>
 
 @code {
     private int currentCount = 0;
@@ -16,18 +33,5 @@
     {
         currentCount++;
     }
-    List<Game> otherGames; // не свойство ,а обычное поле
-    protected override void OnInitialized()
-    {
-        otherGames = new List<Game>()
-        {
-            new Game()
-            {
-                Name = "Test Counter 1",
-                Genre = "Counter",
-                ReleaseDate = new DateTime(2023,07,08)
-            },
-             
-        };
-    }
+   
 }
