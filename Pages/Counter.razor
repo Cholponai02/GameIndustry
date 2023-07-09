@@ -1,5 +1,6 @@
 ﻿@page "/counter"
-
+@inject SingletonService singleton
+@inject TransientService transient
 
 <div class="row">
     <div class="col alert alert-secondary text-center">
@@ -18,11 +19,21 @@
 
 <div class="row">
     <div class="col text-center">
-        <input type="number" class="form-control-lg" @bind="currentCount" 
-           @* @bind-value="currentCount" @bind-value:event="onchange"*@/> 
-            <!--bind привязка данных (создает в автоматическом режиме событие и делегат привязывает к этому событию)  
+        <input type="number" class="form-control-lg" @bind="currentCount" />@*        @bind-value="currentCount" @bind-value:event="onchange"*@
+<!--bind привязка данных (создает в автоматическом режиме событие и делегат привязывает к этому событию)  
                 В bind автоматически создается Onchange
         bind-value исп. если хотим что сработаело свое собитие(не onchange ф свое кастомное)-->
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-6 text-center alert alert-primary">
+        Singleton count: @singleton.Value
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-6 text-center alert alert-danger">
+        Transient count: @transient.Value
     </div>
 </div>
 
@@ -32,6 +43,8 @@
     private void IncrementCount()
     {
         currentCount++;
+        singleton.Value = currentCount;
+        transient.Value = currentCount;
     }
    
 }
